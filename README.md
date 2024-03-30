@@ -6,7 +6,7 @@
 ## Description
 
 An efficient integration between PyTorch and MuJoCo. 
-It enables automatic differentiation through MuJoCo simulation trajectories, 
+Enables automatic differentiation through MuJoCo simulation trajectories, 
 allowing for gradient-based optimization of control policies directly within PyTorch. 
 
 ## Features
