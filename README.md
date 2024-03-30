@@ -11,9 +11,12 @@ allowing for gradient-based optimization of control policies directly within PyT
 
 ## Features
 
-- **Efficient Gradient Computations**: Significantly more efficient than naive Jacobian finite differencing calculations as it utilizes the built-in finite difference method in MuJoCo [mjd_transitionFD](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html#mjd-transitionfd).
-- **Multi-Step Calculations**: Provides the ability to estimate gradients over multiple simulation steps, by propagating gradients through the entire trajectory.
-- **Batch Simulation Support**: Enables batched simulations and gradient computations, significantly improving computational efficiency for large-scale experiments.
+**<img src="https://cdn-icons-png.flaticon.com/128/4285/4285622.png" width="32" height="32"> Efficient Gradient Computations**: Significantly more efficient than naive Jacobian finite differencing calculations as it utilizes the built-in finite difference method in MuJoCo [mjd_transitionFD](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html#mjd-transitionfd).
+
+**<img src="https://cdn-icons-png.flaticon.com/128/9072/9072147.png" width="32" height="32"> Multi-Step Calculations**: Provides the ability to estimate gradients over multiple simulation steps, by propagating gradients through the entire trajectory.
+
+**<img src="https://cdn-icons-png.flaticon.com/512/12979/12979130.png" width="32" height="32"> Batch Simulation Support**: Enables batched simulations and gradient computations, significantly improving computational efficiency for large-scale experiments.
+
 
 ## Execution Benchmark
 <div style="text-align: center;">
