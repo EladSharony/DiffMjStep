@@ -1,4 +1,4 @@
-@software{DiffMujStep2024,
+@software{DiffMjStep2024,
   author = {Sharony, Elad},
   title = {{DiffMjStep: Custom Autograd Extension for Differentiable MuJoCo Dynamics}},
   year = {2024},
