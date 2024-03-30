@@ -48,7 +48,7 @@ next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps=4, mj_model, mj_model
 If you use this package in your research, a citation would be appreciated:
 
 ```
- @software{DiffMujStep2024,
+ @software{DiffMjStep2024,
   author = {Sharony, Elad},
   title = {{DiffMjStep: Custom Autograd Function for Differentiable MuJoCo Dynamics}},
   year = {2024},
