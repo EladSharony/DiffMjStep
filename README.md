@@ -1,12 +1,12 @@
 
-# DiffMjStep: Custom Autograd Extension for Differentiable MuJoCo Dynamics
+# DiffMjStep: Custom Autograd Function for Differentiable MuJoCo Dynamics
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
 
-This Python package provides an efficient integration between PyTorch and MuJoCo. 
-It enables automatic differentiation through MuJoCo simulation trajectories, 
+An efficient integration between PyTorch and MuJoCo. 
+Enables automatic differentiation through MuJoCo simulation trajectories, 
 allowing for gradient-based optimization of control policies directly within PyTorch. 
 
 ## Features
