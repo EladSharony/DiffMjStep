@@ -16,7 +16,9 @@ allowing for gradient-based optimization of control policies directly within PyT
 - **Batch Simulation Support**: Enables batched simulations and gradient computations, significantly improving computational efficiency for large-scale experiments.
 
 ## Execution Benchmark
-![Benchmark Results](execution_time.svg)
+<div style="text-align: center;">
+    <img src="execution_time.svg" alt="Benchmark Results">
+</div>
 
 ## Usage
 
