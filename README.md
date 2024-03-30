@@ -1,5 +1,5 @@
 
-# DiffMjStep: Custom Autograd Extension for Differentiable MuJoCo Dynamics
+# DiffMjStep: Custom Autograd Function for Differentiable MuJoCo Dynamics
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
