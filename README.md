@@ -50,13 +50,9 @@ If you use this package in your research, a citation would be appreciated:
 ```
  @software{DiffMujStep2024,
   author = {Sharony, Elad},
-  title = {{DiffMjStep: Custom Autograd Extension for Differentiable MuJoCo Dynamics}},
+  title = {{DiffMjStep: Custom Autograd Function for Differentiable MuJoCo Dynamics}},
   year = {2024},
   version = {1.0},
   howpublished = {\url{https://github.com/EladSharony/DiffMjStep}},
 }
 ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
