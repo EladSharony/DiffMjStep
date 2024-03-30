@@ -40,7 +40,7 @@ next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps=4, mj_model, mj_model
 
 ## Citation
 
-If you use this package in your research, we would appreciate citations to the following paper:
+If you use this package in your research, a citation would be appreciated:
 
 ```
  @software{DiffMujStep2024,
