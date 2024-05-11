@@ -40,7 +40,7 @@ class MjStep(Function):
 
         """
         # Extracting the arguments
-        state, ctrl, n_steps, mj_model, mj_data, _ = args
+        state, ctrl, n_steps, mj_model, mj_data = args
         dydx, dydu = [], []
         device = state.device
         compute_grads = state.requires_grad or ctrl.requires_grad
@@ -108,19 +108,18 @@ class MjStep(Function):
         """
         Set up the context for the backward pass.
         """
-        state, _, _, _, _, clamp_grads = inputs
+        state, _, _, _, _ = inputs
         _, dydx, dydu = output
 
         dydx = torch.from_numpy(dydx.astype(np.float32)).to(state.device) if dydx is not None else None
         dydu = torch.from_numpy(dydu.astype(np.float32)).to(state.device) if dydu is not None else None
 
         ctx.save_for_backward(dydx, dydu)
-        ctx.clamp_grads = clamp_grads
 
     @staticmethod
     @once_differentiable
     def backward(ctx: Function, grad_output: torch.Tensor, *args) \
-            -> tuple[torch.Tensor, torch.Tensor, None, None, None, None]:
+            -> tuple[torch.Tensor, torch.Tensor, None, None, None]:
         """
         Backward pass of the MjStep function.
 
@@ -149,7 +148,7 @@ class MjStep(Function):
         else:
             grad_ctrl = None
 
-        return grad_state, grad_ctrl, None, None, None, None
+        return grad_state, grad_ctrl, None, None, None
 
     @staticmethod
     def set_state_and_ctrl(mj_model: mj.MjModel, mj_data: mj.MjData, state: np.ndarray, ctrl: np.ndarray) -> None:

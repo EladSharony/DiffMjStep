@@ -32,8 +32,8 @@ def call_jacobian(state: torch.Tensor, ctrl: torch.Tensor, n_steps: int, mj_mode
     ctrl.requires_grad = False
     n_batch = state.shape[0]
     naive_dydx, naive_dydu = zip(
-        *[(jacobian(lambda s: MjStep.apply(s, ctrl[[i]], n_steps, mj_model, mj_data, False)[0], state[[i]], 1e-4),
-           jacobian(lambda a: MjStep.apply(state[[i]], a, n_steps, mj_model, mj_data, False)[0], ctrl[[i]], 1e-4))
+        *[(jacobian(lambda s: MjStep.apply(s, ctrl[[i]], n_steps, mj_model, mj_data)[0], state[[i]], 1e-4),
+           jacobian(lambda a: MjStep.apply(state[[i]], a, n_steps, mj_model, mj_data)[0], ctrl[[i]], 1e-4))
           for i in range(n_batch)])
     naive_dydx, naive_dydu = torch.stack(naive_dydx), torch.stack(naive_dydu)
     return naive_dydx, naive_dydu
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
                 # Measure the execution time of MjStep.apply
                 start_time = time.time()
-                next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps, mj_model, mj_data, False)
+                next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps, mj_model, mj_data)
                 end_time = time.time()
                 new_row = pd.DataFrame({'run': [run], 'device': [device], 'method': ['MjStep'], 'batch_size': [n_batch],
                                         'execution_time': [end_time - start_time]})

@@ -40,7 +40,7 @@ state = torch.rand(mj_model.nq + mj_model.nv + mj_model.na, requires_grad=True)
 ctrl = torch.rand(mj_model.nu, requires_grad=True)
 
 # Compute next state and gradients
-next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps=4, mj_model, mj_model, mj_data, compute_gradients=True)
+next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps=4, mj_model, mj_model, mj_data)
 ```
 
 ## Citation
