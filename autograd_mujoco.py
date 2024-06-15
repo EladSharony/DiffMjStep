@@ -50,8 +50,18 @@ class MjStep(Function):
         # Repeat the control input for each step in the rollout: [B, 1, nu] -> [B, n_steps, nu]
         ctrl = np.repeat(ctrl[:, None, :], n_steps, axis=1)
 
+        if state.shape[-1] == mj.mj_stateSize(mj_model, mj.mjtState.mjSTATE_FULLPHYSICS.value) - 1:
+            """
+            As of MuJoCo 3.1.2 the initial state passed to rollout() must include a time step. 
+            Manually concatenating a time-step to the state vector.
+            """
+            state = np.concatenate([np.zeros_like(state[:, [0]]), state], axis=1)
+
         # Perform the rollout and get the states
         states, _ = mj.rollout.rollout(mj_model, mj_data, state, ctrl)
+
+        # Pop the time-step from state and states (we don't need it for the gradients)
+        state, states = state[:, 1:], states[:, :, 1:]
 
         # Reshape the states and control inputs: [B, n_steps, nq + nv + na], [B, n_steps, nu]
         states = states.reshape(-1, n_steps, mj_model.nq + mj_model.nv + mj_model.na)
