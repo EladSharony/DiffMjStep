@@ -43,6 +43,9 @@ ctrl = torch.rand(mj_model.nu, requires_grad=True)
 next_state, dydx, dydu = MjStep.apply(state, ctrl, n_steps=4, mj_model, mj_model, mj_data)
 ```
 
+## Notes
+- As of [MuJoCo 3.1.2](https://mujoco.readthedocs.io/en/3.1.2/changelog.html#python-bindings) the initial state passed to `rollout()` must include a time-step, such that `nstate = mj_stateSize(model, mjtState.mjSTATE_FULLPHYSICS)`. 
+
 ## Citation
 
 If you use this package in your research, a citation would be appreciated:
