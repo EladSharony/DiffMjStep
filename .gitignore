@@ -1,8 +1,11 @@
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.ruff_cache/
 .venv/
+.wheel-venv/
 *.egg-info/
 dist/
-build/
+benchmarks/results/
 MUJOCO_LOG.TXT
 .idea/

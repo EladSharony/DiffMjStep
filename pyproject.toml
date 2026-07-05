@@ -31,8 +31,35 @@ dependencies = [
 Repository = "https://github.com/EladSharony/DiffMjStep"
 Issues = "https://github.com/EladSharony/DiffMjStep/issues"
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "matplotlib>=3.7",  # benchmarks plotting scripts only
+    "ruff>=0.13",
+    # dm_control is the benchmark + test env source (XML+assets via raw mujoco bindings;
+    # its Physics wrapper is not used). Tests that build models skip if it is absent.
+    "dm_control>=1.0",
+]
+
 [tool.setuptools.packages.find]
 include = ["diffmjstep*"]
 
 [tool.setuptools.package-data]
 diffmjstep = ["cpp/*.cpp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff.lint]
+# E702/E731 are intentional compact style in the plotting scripts; keep ruff a lint gate,
+# not a rewrite engine.
+ignore = ["E702", "E731"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

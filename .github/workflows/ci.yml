@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [revive/validation]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --frozen --python 3.12 --extra dev
+      - run: uv run --frozen ruff check .
+      - run: uv run --frozen pytest -q
+      - name: Run examples
+        if: runner.os == 'Linux'
+        run: |
+          uv run --frozen python examples/00_basic_step.py
+          uv run --frozen python examples/03_trajectory_optimization.py
+          uv run --frozen python examples/04_sensor_loss.py
+      - name: Build distributions
+        if: runner.os == 'Linux'
+        run: uv build
+      - name: Test installed wheel and packaged native source
+        if: runner.os == 'Linux'
+        shell: bash
+        env:
+          UV_PROJECT_ENVIRONMENT: .wheel-venv
+        run: |
+          uv sync --frozen --python 3.12 --no-install-project
+          uv pip install --python .wheel-venv/bin/python --no-deps dist/*.whl
+          mkdir -p /tmp/diffmjstep-wheel-smoke
+          cd /tmp/diffmjstep-wheel-smoke
+          "${{ github.workspace }}/.wheel-venv/bin/python" - <<'PY'
+          import importlib.resources as resources
+
+          import mujoco
+          import torch
+
+          from diffmjstep import mj_step
+
+          model = mujoco.MjModel.from_xml_string('''
+          <mujoco>
+            <worldbody>
+              <body><joint name="j"/><geom type="sphere" size=".1"/></body>
+            </worldbody>
+            <actuator><motor joint="j"/></actuator>
+          </mujoco>
+          ''')
+          x0 = torch.zeros(1, 2, dtype=torch.float64, requires_grad=True)
+          u = torch.full((1, 1), 0.2, dtype=torch.float64, requires_grad=True)
+          x1 = mj_step(model, x0, u, backend="cpp_vjp")
+          x1.square().sum().backward()
+          assert x0.grad is not None and u.grad is not None
+          assert resources.files("diffmjstep").joinpath("cpp/rollout_vjp.cpp").is_file()
+          PY
