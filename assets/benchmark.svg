@@ -1,0 +1,58 @@
+<svg viewBox="0 0 870 478" xmlns="http://www.w3.org/2000/svg"
+     font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>DiffMjStep: 51x faster forward and 13x faster backward than a pure-Python reference of the same algorithm, at peak batch 4096 (geomean over 9 dm_control envs, float64, MuJoCo 3.10.0, Intel i9-14900K, 2 campaigns). Out of the box at batch 256 it is 16x forward / 5.7x backward.</title>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10"
+            refX="0" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#c01f5b"/>
+    </marker>
+  </defs>
+
+  <!-- title + config subtitle (peak vs default disclosed up front) -->
+  <text x="435" y="26" text-anchor="middle" fill="#8b949e" font-size="19" font-weight="700">DiffMjStep makes differentiable MuJoCo fast</text>
+  <text x="435" y="46" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="400">peak throughput at batch 4096 &#8212; out of the box (batch 256) it is 16&#215; forward / 5.7&#215; backward</text>
+
+  <!-- legend -->
+  <rect x="264" y="58" width="13" height="13" fill="#8b949e"/>
+  <text x="283" y="69" fill="#8b949e" font-size="12" font-weight="600">pure-Python reference</text>
+  <rect x="452" y="58" width="13" height="13" fill="#c01f5b"/>
+  <text x="471" y="69" fill="#c01f5b" font-size="12" font-weight="700">DiffMjStep</text>
+
+  <!-- y-axis title -->
+  <text transform="translate(26,242) rotate(-90)" text-anchor="middle" fill="#8b949e" font-size="12">throughput  (transitions / s, log scale)</text>
+
+  <!-- gridlines + decade labels (y_bottom=390, 98.3 px/decade) -->
+  <line x1="155" y1="95" x2="795" y2="95" stroke="#8b949e" stroke-width="1" opacity="0.16"/>
+  <text x="147" y="99" text-anchor="end" fill="#8b949e" font-size="11">10M</text>
+  <line x1="155" y1="193" x2="795" y2="193" stroke="#8b949e" stroke-width="1" opacity="0.16"/>
+  <text x="147" y="197" text-anchor="end" fill="#8b949e" font-size="11">1M</text>
+  <line x1="155" y1="292" x2="795" y2="292" stroke="#8b949e" stroke-width="1" opacity="0.16"/>
+  <text x="147" y="296" text-anchor="end" fill="#8b949e" font-size="11">100k</text>
+  <line x1="155" y1="390" x2="795" y2="390" stroke="#8b949e" stroke-width="1.5" opacity="0.55"/>
+  <text x="147" y="394" text-anchor="end" fill="#8b949e" font-size="11">10k</text>
+
+  <!-- FORWARD group: reference 85k (y=299,h=91), DiffMjStep 4.33M (y=131,h=259) -->
+  <rect x="200" y="299" width="70" height="91" fill="#8b949e"/>
+  <text x="235" y="291" text-anchor="middle" fill="#8b949e" font-size="12.5" font-weight="600">85k</text>
+  <rect x="340" y="131" width="70" height="259" fill="#c01f5b"/>
+  <text x="375" y="123" text-anchor="middle" fill="#c01f5b" font-size="13.5" font-weight="700">4.33M</text>
+  <text x="288" y="220" text-anchor="end" fill="#c01f5b" font-size="26" font-weight="700">51&#215;</text>
+  <line x1="312" y1="299" x2="312" y2="148" stroke="#c01f5b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- BACKWARD group: reference 33k (y=339,h=51), DiffMjStep 415k (y=231,h=159) -->
+  <rect x="540" y="339" width="70" height="51" fill="#8b949e"/>
+  <text x="575" y="331" text-anchor="middle" fill="#8b949e" font-size="12.5" font-weight="600">33k</text>
+  <rect x="680" y="231" width="70" height="159" fill="#c01f5b"/>
+  <text x="715" y="223" text-anchor="middle" fill="#c01f5b" font-size="13.5" font-weight="700">415k</text>
+  <text x="628" y="292" text-anchor="end" fill="#c01f5b" font-size="26" font-weight="700">13&#215;</text>
+  <line x1="652" y1="339" x2="652" y2="248" stroke="#c01f5b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- group labels -->
+  <text x="305" y="412" text-anchor="middle" fill="#8b949e" font-size="15" font-weight="600">Forward</text>
+  <text x="645" y="412" text-anchor="middle" fill="#8b949e" font-size="15" font-weight="600">Backward</text>
+
+  <!-- caption: methodology (gray) -->
+  <text x="20" y="434" fill="#8b949e" font-size="10.5" textLength="775" lengthAdjust="spacing">throughput = B&#215;T &#247; wall-clock &#183; geomean over 9 dm_control envs (1&#8211;9 DOF) &#183; per-env n = 15 fwd / 8 bwd runs &#183; 2 campaigns, spread &#8804; 5%</text>
+  <text x="20" y="450" fill="#8b949e" font-size="10.5" textLength="775" lengthAdjust="spacing">baseline = the same algorithm, no native acceleration &#8212; fwd: naive per-env Python mj_step loop; bwd: reference NumPy mjd_transitionFD VJP</text>
+  <text x="20" y="466" fill="#8b949e" font-size="10.5" textLength="775" lengthAdjust="spacing">Intel i9-14900K &#183; MuJoCo 3.10.0 &#183; PyTorch 2.12.1+cpu &#183; float64 &#183; batch 4096 &#183; horizon 32 &#183; geomean over 9 dm_control envs, 2 campaigns</text>
+</svg>
