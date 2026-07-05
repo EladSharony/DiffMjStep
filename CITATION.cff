@@ -1,7 +1,11 @@
-@software{DiffMjStep2024,
-  author = {Sharony, Elad},
-  title = {{DiffMjStep: Custom Autograd Extension for Differentiable MuJoCo Dynamics}},
-  year = {2024},
-  version = {1.0},
-  howpublished = {\url{https://github.com/EladSharony/DiffMjStep}},
-}
+cff-version: 1.2.0
+message: "If you use DiffMjStep, please cite this software."
+type: software
+title: "DiffMjStep: PyTorch Autograd for MuJoCo Rollouts"
+version: "0.2.0"
+date-released: "2026-06-28"
+authors:
+  - family-names: Sharony
+    given-names: Elad
+repository-code: "https://github.com/EladSharony/DiffMjStep"
+license: MIT
